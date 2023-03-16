@@ -4,11 +4,6 @@ metadata:
 # set your user name
   name: {{ .Release.Name }}
 spec:
-  volumes:
-    - name: index_html
-      configMap:
-        name: index.html
-        defaultMode: 420
   replicas: {{ .Values.ReplicaNumber }}
   selector:
     matchLabels:
@@ -20,6 +15,11 @@ spec:
 # set your user name
         app: {{ .Release.Name }}
     spec:
+      volumes:
+        - name: index_html
+          configMap:
+            name: index.html
+            defaultMode: 420
       containers:
         - resources: {}
           terminationMessagePath: /dev/termination-log
