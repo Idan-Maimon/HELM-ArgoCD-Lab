@@ -16,7 +16,7 @@ spec:
         app: {{ .Release.Name }}
     spec:
       volumes:
-        - name: index_html
+        - name: index-html
           configMap:
             name: index.html
             defaultMode: 420
@@ -29,7 +29,7 @@ spec:
               protocol: TCP
           imagePullPolicy: IfNotPresent
           volumeMounts:
-            - name: index_html
+            - name: index-html
               mountPath: /tmp/html
           image: {{ .Values.containers.image }}:{{ .Values.containers.tag }}
       restartPolicy: Always
