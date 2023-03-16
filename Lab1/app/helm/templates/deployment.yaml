@@ -4,6 +4,11 @@ metadata:
 # set your user name
   name: {{ .Release.Name }}
 spec:
+  volumes:
+    - name: index-html
+      configMap:
+        name: index.html
+        defaultMode: 420
   replicas: {{ .Values.ReplicaNumber }}
   selector:
     matchLabels:
@@ -23,7 +28,9 @@ spec:
             - containerPort: {{ .Values.containers.containerPort }}
               protocol: TCP
           imagePullPolicy: IfNotPresent
-# update with the iamge you build in part 1
+          volumeMounts:
+            - name: index-html
+              mountPath: /tmp/html
           image: {{ .Values.containers.image }}:{{ .Values.containers.tag }}
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
